@@ -48,6 +48,14 @@ export interface Todo_Key {
 }
 
 /* Allow users to create refs without passing in DataConnect */
+export function listTodoRef(): QueryRef<ListTodoData, undefined>;
+/* Allow users to pass in custom DataConnect instances */
+export function listTodoRef(dc: DataConnect): QueryRef<ListTodoData, undefined>;
+
+export function listTodo(): QueryPromise<ListTodoData, undefined>;
+export function listTodo(dc: DataConnect): QueryPromise<ListTodoData, undefined>;
+
+/* Allow users to create refs without passing in DataConnect */
 export function createTodoRef(vars: CreateTodoVariables): MutationRef<CreateTodoData, CreateTodoVariables>;
 /* Allow users to pass in custom DataConnect instances */
 export function createTodoRef(dc: DataConnect, vars: CreateTodoVariables): MutationRef<CreateTodoData, CreateTodoVariables>;
@@ -70,12 +78,4 @@ export function completeTodoRef(dc: DataConnect, vars: CompleteTodoVariables): M
 
 export function completeTodo(vars: CompleteTodoVariables): MutationPromise<CompleteTodoData, CompleteTodoVariables>;
 export function completeTodo(dc: DataConnect, vars: CompleteTodoVariables): MutationPromise<CompleteTodoData, CompleteTodoVariables>;
-
-/* Allow users to create refs without passing in DataConnect */
-export function listTodoRef(): QueryRef<ListTodoData, undefined>;
-/* Allow users to pass in custom DataConnect instances */
-export function listTodoRef(dc: DataConnect): QueryRef<ListTodoData, undefined>;
-
-export function listTodo(): QueryPromise<ListTodoData, undefined>;
-export function listTodo(dc: DataConnect): QueryPromise<ListTodoData, undefined>;
 

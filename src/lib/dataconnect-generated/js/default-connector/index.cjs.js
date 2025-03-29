@@ -7,6 +7,16 @@ const connectorConfig = {
 };
 exports.connectorConfig = connectorConfig;
 
+exports.listTodoRef = function listTodoRef(dc) {
+  const { dc: dcInstance} = validateArgs(connectorConfig, dc, undefined);
+  dcInstance._useGeneratedSdk();
+  return queryRef(dcInstance, 'ListTodo');
+}
+
+exports.listTodo = function listTodo(dc) {
+  return executeQuery(listTodoRef(dc));
+};
+
 exports.createTodoRef = function createTodoRef(dcOrVars, vars) {
   const { dc: dcInstance, vars: inputVars} = validateArgs(connectorConfig, dcOrVars, vars, true);
   dcInstance._useGeneratedSdk();
@@ -35,14 +45,4 @@ exports.completeTodoRef = function completeTodoRef(dcOrVars, vars) {
 
 exports.completeTodo = function completeTodo(dcOrVars, vars) {
   return executeMutation(completeTodoRef(dcOrVars, vars));
-};
-
-exports.listTodoRef = function listTodoRef(dc) {
-  const { dc: dcInstance} = validateArgs(connectorConfig, dc, undefined);
-  dcInstance._useGeneratedSdk();
-  return queryRef(dcInstance, 'ListTodo');
-}
-
-exports.listTodo = function listTodo(dc) {
-  return executeQuery(listTodoRef(dc));
 };

@@ -8,6 +8,7 @@ import { toast } from "sonner"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Checkbox } from "@/components/ui/checkbox"
+import { getTodos } from "@/lib/todo-sevice"
 
 
 interface Todo {
@@ -23,24 +24,20 @@ export default function TodoListDataConnect() {
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    fetchTodos()
-  }, [])
-
-  const fetchTodos = async () => {
-    try {
+    async function fetchMovies() {
       setLoading(true)
-      // Using Data Connect to query the database
-      const result = {rows: []};
+      const todosData = await getTodos();
 
-      // Assuming the result has a rows property with the data
-      setTodos(result.rows || [])
-    } catch (error) {
-      console.error("Error fetching todos:", error)
-      toast.error("Failed to load todos. Please try again.")
-    } finally {
+      if (todosData) setTodos(todosData);
+      console.log(todosData)
       setLoading(false)
     }
-  }
+    
+
+    fetchMovies();
+  }, []);
+
+
 
   const addTodo = async (e: React.FormEvent) => {
     e.preventDefault()
