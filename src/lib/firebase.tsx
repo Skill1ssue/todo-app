@@ -1,3 +1,4 @@
+"use client"
 import { initializeApp, getApps } from "firebase/app";
 import { connectAuthEmulator, getAuth } from "firebase/auth";
 import {
@@ -22,10 +23,10 @@ const firebaseApp =
 const auth = getAuth(firebaseApp);
 const dataconnect = getDataConnect(firebaseApp, connectorConfig);
 
-if (process.env.NODE_ENV === "development") {
-  connectDataConnectEmulator(dataconnect, "127.0.0.1", 9399, false);
-  connectAuthEmulator(auth, "http://localhost:9099");
-}
+// if (process.env.NODE_ENV === "development") {
+//   connectDataConnectEmulator(dataconnect, "127.0.0.1", 9399, false);
+//   connectAuthEmulator(auth, "http://localhost:9099");
+// }
 
 const AuthContext = createContext(auth);
 
