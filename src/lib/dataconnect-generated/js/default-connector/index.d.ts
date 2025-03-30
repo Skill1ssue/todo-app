@@ -8,14 +8,6 @@ export type Int64String = string;
 export type DateString = string;
 
 
-export interface CompleteTodoData {
-  todo_update?: Todo_Key | null;
-}
-
-export interface CompleteTodoVariables {
-  id: UUIDString;
-}
-
 export interface CreateTodoData {
   todo_insert: Todo_Key;
 }
@@ -48,14 +40,6 @@ export interface Todo_Key {
 }
 
 /* Allow users to create refs without passing in DataConnect */
-export function listTodoRef(): QueryRef<ListTodoData, undefined>;
-/* Allow users to pass in custom DataConnect instances */
-export function listTodoRef(dc: DataConnect): QueryRef<ListTodoData, undefined>;
-
-export function listTodo(): QueryPromise<ListTodoData, undefined>;
-export function listTodo(dc: DataConnect): QueryPromise<ListTodoData, undefined>;
-
-/* Allow users to create refs without passing in DataConnect */
 export function createTodoRef(vars: CreateTodoVariables): MutationRef<CreateTodoData, CreateTodoVariables>;
 /* Allow users to pass in custom DataConnect instances */
 export function createTodoRef(dc: DataConnect, vars: CreateTodoVariables): MutationRef<CreateTodoData, CreateTodoVariables>;
@@ -72,10 +56,10 @@ export function deleteTodo(vars: DeleteTodoVariables): MutationPromise<DeleteTod
 export function deleteTodo(dc: DataConnect, vars: DeleteTodoVariables): MutationPromise<DeleteTodoData, DeleteTodoVariables>;
 
 /* Allow users to create refs without passing in DataConnect */
-export function completeTodoRef(vars: CompleteTodoVariables): MutationRef<CompleteTodoData, CompleteTodoVariables>;
+export function listTodoRef(): QueryRef<ListTodoData, undefined>;
 /* Allow users to pass in custom DataConnect instances */
-export function completeTodoRef(dc: DataConnect, vars: CompleteTodoVariables): MutationRef<CompleteTodoData, CompleteTodoVariables>;
+export function listTodoRef(dc: DataConnect): QueryRef<ListTodoData, undefined>;
 
-export function completeTodo(vars: CompleteTodoVariables): MutationPromise<CompleteTodoData, CompleteTodoVariables>;
-export function completeTodo(dc: DataConnect, vars: CompleteTodoVariables): MutationPromise<CompleteTodoData, CompleteTodoVariables>;
+export function listTodo(): QueryPromise<ListTodoData, undefined>;
+export function listTodo(dc: DataConnect): QueryPromise<ListTodoData, undefined>;
 

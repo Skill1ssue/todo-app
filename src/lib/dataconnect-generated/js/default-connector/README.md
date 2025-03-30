@@ -7,7 +7,6 @@
 - [**Mutations**](#mutations)
   - [*CreateTodo*](#createtodo)
   - [*DeleteTodo*](#deletetodo)
-  - [*CompleteTodo*](#completetodo)
 
 # Generated TypeScript README
 This README will guide you through the process of using the generated TypeScript SDK package for the connector `default`. It will also provide examples on how to use your generated SDK to call your Data Connect queries and mutations.
@@ -345,100 +344,6 @@ console.log(data.todo_delete);
 executeMutation(ref).then((response) => {
   const data = response.data;
   console.log(data.todo_delete);
-});
-```
-
-## CompleteTodo
-You can execute the `CompleteTodo` mutation using the following action shortcut function, or by calling `executeMutation()` after calling the following `MutationRef` function, both of which are defined in [default-connector/index.d.ts](./index.d.ts):
-```javascript
-completeTodo(vars: CompleteTodoVariables): MutationPromise<CompleteTodoData, CompleteTodoVariables>;
-
-completeTodoRef(vars: CompleteTodoVariables): MutationRef<CompleteTodoData, CompleteTodoVariables>;
-```
-You can also pass in a `DataConnect` instance to the action shortcut function or `MutationRef` function.
-```javascript
-completeTodo(dc: DataConnect, vars: CompleteTodoVariables): MutationPromise<CompleteTodoData, CompleteTodoVariables>;
-
-completeTodoRef(dc: DataConnect, vars: CompleteTodoVariables): MutationRef<CompleteTodoData, CompleteTodoVariables>;
-```
-
-### Variables
-The `CompleteTodo` mutation requires an argument of type `CompleteTodoVariables`, which is defined in [default-connector/index.d.ts](./index.d.ts). It has the following fields:
-
-```javascript
-export interface CompleteTodoVariables {
-  id: UUIDString;
-}
-```
-### Return Type
-Recall that executing the `CompleteTodo` mutation returns a `MutationPromise` that resolves to an object with a `data` property.
-
-The `data` property is an object of type `CompleteTodoData`, which is defined in [default-connector/index.d.ts](./index.d.ts). It has the following fields:
-```javascript
-export interface CompleteTodoData {
-  todo_update?: Todo_Key | null;
-}
-```
-### Using `CompleteTodo`'s action shortcut function
-
-```javascript
-import { getDataConnect } from 'firebase/data-connect';
-import { connectorConfig, completeTodo, CompleteTodoVariables } from '@firebasegen/default-connector';
-
-// The `CompleteTodo` mutation requires an argument of type `CompleteTodoVariables`:
-const completeTodoVars: CompleteTodoVariables = {
-  id: ..., 
-};
-
-// Call the `completeTodo()` function to execute the mutation.
-// You can use the `await` keyword to wait for the promise to resolve.
-const { data } = await completeTodo(completeTodoVars);
-// Variables can be defined inline as well.
-const { data } = await completeTodo({ id: ..., });
-
-// You can also pass in a `DataConnect` instance to the action shortcut function.
-const dataConnect = getDataConnect(connectorConfig);
-const { data } = await completeTodo(dataConnect, completeTodoVars);
-
-console.log(data.todo_update);
-
-// Or, you can use the `Promise` API.
-completeTodo(completeTodoVars).then((response) => {
-  const data = response.data;
-  console.log(data.todo_update);
-});
-```
-
-### Using `CompleteTodo`'s `MutationRef` function
-
-```javascript
-import { getDataConnect, executeMutation } from 'firebase/data-connect';
-import { connectorConfig, completeTodoRef, CompleteTodoVariables } from '@firebasegen/default-connector';
-
-// The `CompleteTodo` mutation requires an argument of type `CompleteTodoVariables`:
-const completeTodoVars: CompleteTodoVariables = {
-  id: ..., 
-};
-
-// Call the `completeTodoRef()` function to get a reference to the mutation.
-const ref = completeTodoRef(completeTodoVars);
-// Variables can be defined inline as well.
-const ref = completeTodoRef({ id: ..., });
-
-// You can also pass in a `DataConnect` instance to the `MutationRef` function.
-const dataConnect = getDataConnect(connectorConfig);
-const ref = completeTodoRef(dataConnect, completeTodoVars);
-
-// Call `executeMutation()` on the reference to execute the mutation.
-// You can use the `await` keyword to wait for the promise to resolve.
-const { data } = await executeMutation(ref);
-
-console.log(data.todo_update);
-
-// Or, you can use the `Promise` API.
-executeMutation(ref).then((response) => {
-  const data = response.data;
-  console.log(data.todo_update);
 });
 ```
 

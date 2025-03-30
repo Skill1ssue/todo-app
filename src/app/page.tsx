@@ -6,7 +6,7 @@ export default function Home() {
       <div className="w-full max-w-md">
         <h1 className="text-3xl font-bold mb-6 text-center">Todo List with Data Connect</h1>
         <p className="text-center text-muted-foreground mb-6">
-          Using Firebase Data Connect with your external database
+          Developed by <strong>Berling Guzman Frias</strong> for Pereyra Dev
         </p>
         <TodoListDataConnect />
       </div>

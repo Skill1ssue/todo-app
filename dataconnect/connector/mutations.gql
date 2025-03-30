@@ -6,13 +6,8 @@ mutation CreateTodo($text: String!, $completed: Boolean!)
   todo_insert(data: { text: $text, completed: $completed})
 }
 
-mutation DeleteTodo($id: UUID!) @auth(level: USER) {
+mutation DeleteTodo($id: UUID!) @auth(level: PUBLIC) {
   todo_delete(id: $id)
-}
-
-
-mutation CompleteTodo($id: UUID!) @auth(level: USER) {
-  todo_update(key: {id: $id}, data: {completed: true})
 }
 
 # # Upsert (update or insert) a user's username based on their auth.uid

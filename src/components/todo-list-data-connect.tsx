@@ -7,8 +7,10 @@ import { PlusCircle, Trash } from "lucide-react"
 import { toast } from "sonner"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
-import { Checkbox } from "@/components/ui/checkbox"
+// import { Checkbox } from "@/components/ui/checkbox"
 import { getTodos } from "@/lib/todo-sevice"
+import { addTodo } from "@/lib/todo-sevice"
+import { deleteTodoItem } from "@/lib/todo-sevice"
 
 
 interface Todo {
@@ -22,67 +24,48 @@ export default function TodoListDataConnect() {
   const [todos, setTodos] = useState<Todo[]>([])
   const [newTodo, setNewTodo] = useState("")
   const [loading, setLoading] = useState(true)
+  const [submitButton, setSubmitButton] = useState(false)
+  const [deleteButton, setDeleteButton] = useState(false)
 
   useEffect(() => {
-    async function fetchMovies() {
+    async function fetchTodoList() {
       setLoading(true)
       const todosData = await getTodos();
 
       if (todosData) setTodos(todosData);
-      console.log(todosData)
       setLoading(false)
     }
     
 
-    fetchMovies();
-  }, []);
+    fetchTodoList();
+  }, [submitButton, deleteButton]);
 
 
 
-  const addTodo = async (e: React.FormEvent) => {
+  const addNewTodo = async (e: React.FormEvent) => {
     e.preventDefault()
     if (newTodo.trim() === "") return
 
     try {
       // Using Data Connect to insert a new todo
-      const result =  {rows: []};
+        const addTodoItem = addTodo(newTodo, false)
+        addTodoItem.finally(() => setSubmitButton(!submitButton))
 
-      // Assuming the result has an insertedId or similar property
-      if (result.rows && result.rows.length > 0) {
-        const newTodoItem = result.rows[0]
-        setTodos([newTodoItem, ...todos])
-        setNewTodo("")
 
         toast.success("Todo added successfully!")
-      }
+
     } catch (error) {
       console.error("Error adding todo:", error)
       toast.error("Failed to add todo. Please try again.")
     }
   }
 
-  const toggleTodo = async (id: string, completed: boolean) => {
-    try {
-      // Using Data Connect to update a todo
-    
-
-      // Update the local state
-      setTodos(todos.map((todo) => (todo.id === id ? { ...todo, completed: !completed } : todo)))
-
-      toast.success(`Task marked as ${!completed ? "completed" : "incomplete"}`)
-    } catch (error) {
-      console.error("Error updating todo:", error)
-      toast.error("Failed to update todo. Please try again.")
-    }
-  }
 
   const deleteTodo = async (id: string) => {
     try {
       // Using Data Connect to delete a todo
-   
-
-      // Update the local state
-      setTodos(todos.filter((todo) => todo.id !== id))
+      const deletedTodoItem = deleteTodoItem(id)
+        deletedTodoItem.finally(() => setDeleteButton(!deleteButton))
 
       toast.success("Todo deleted successfully!")
     } catch (error) {
@@ -97,7 +80,7 @@ export default function TodoListDataConnect() {
 
   return (
     <div className="space-y-4">
-      <form onSubmit={addTodo} className="flex gap-2">
+      <form onSubmit={addNewTodo} className="flex gap-2">
         <Input
           type="text"
           value={newTodo}
@@ -123,11 +106,11 @@ export default function TodoListDataConnect() {
               }`}
             >
               <div className="flex items-center gap-3">
-                <Checkbox
+                {/* <Checkbox
                   id={`todo-${todo.id}`}
                   checked={todo.completed}
                   onCheckedChange={() => toggleTodo(todo.id, todo.completed)}
-                />
+                /> */}
                 <label
                   htmlFor={`todo-${todo.id}`}
                   className={`font-medium ${todo.completed ? "line-through text-muted-foreground" : ""}`}

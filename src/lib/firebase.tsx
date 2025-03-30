@@ -1,11 +1,11 @@
 "use client"
 import { initializeApp, getApps } from "firebase/app";
-import { connectAuthEmulator, getAuth } from "firebase/auth";
-import {
-  connectDataConnectEmulator,
-  getDataConnect,
-} from "firebase/data-connect";
-import { connectorConfig } from './dataconnect-generated/js/default-connector';
+import { getAuth } from "firebase/auth";
+// import {
+//   connectDataConnectEmulator,
+//   getDataConnect,
+// } from "firebase/data-connect";
+// import { connectorConfig } from './dataconnect-generated/js/default-connector';
 import { createContext } from "react";
 
 const firebaseConfig = {
@@ -21,7 +21,7 @@ const firebaseApp =
   getApps().length === 0 ? initializeApp(firebaseConfig) : getApps()[0];
 
 const auth = getAuth(firebaseApp);
-const dataconnect = getDataConnect(firebaseApp, connectorConfig);
+// const dataconnect = getDataConnect(firebaseApp, connectorConfig);
 
 // if (process.env.NODE_ENV === "development") {
 //   connectDataConnectEmulator(dataconnect, "127.0.0.1", 9399, false);

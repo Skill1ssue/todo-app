@@ -10,7 +10,6 @@
 - [**Mutations**](#mutations)
   - [*CreateTodo*](#createtodo)
   - [*DeleteTodo*](#deletetodo)
-  - [*CompleteTodo*](#completetodo)
 
 # Generated React README
 This README will guide you through the process of using the generated React SDK package for the connector `default`. It will also provide examples on how to use your generated SDK to call your Data Connect queries and mutations.
@@ -397,100 +396,6 @@ export default function DeleteTodoComponent() {
   // If the Mutation is successful, you can access the data returned using the `UseMutationResult.data` field.
   if (mutation.isSuccess) {
     console.log(mutation.data.todo_delete);
-  }
-  return <div>Mutation execution {mutation.isSuccess ? 'successful' : 'failed'}!</div>;
-}
-```
-
-## CompleteTodo
-You can execute the `CompleteTodo` Mutation using the `UseMutationResult` object returned by the following Mutation hook function (which is defined in [default-connector/react/index.d.ts](./index.d.ts)):
-```javascript
-useCompleteTodo(options?: useDataConnectMutationOptions<CompleteTodoData, FirebaseError, CompleteTodoVariables>): UseDataConnectMutationResult<CompleteTodoData, CompleteTodoVariables>;
-```
-You can also pass in a `DataConnect` instance to the Mutation hook function.
-```javascript
-useCompleteTodo(dc: DataConnect, options?: useDataConnectMutationOptions<CompleteTodoData, FirebaseError, CompleteTodoVariables>): UseDataConnectMutationResult<CompleteTodoData, CompleteTodoVariables>;
-```
-
-### Variables
-The `CompleteTodo` Mutation requires an argument of type `CompleteTodoVariables`, which is defined in [default-connector/index.d.ts](../index.d.ts). It has the following fields:
-
-```javascript
-export interface CompleteTodoVariables {
-  id: UUIDString;
-}
-```
-### Return Type
-Recall that calling the `CompleteTodo` Mutation hook function returns a `UseMutationResult` object. This object holds the state of your Mutation, including whether the Mutation is loading, has completed, or has succeeded/failed, among other things.
-
-To check the status of a Mutation, use the `UseMutationResult.status` field. You can also check for pending / success / error status using the `UseMutationResult.isPending`, `UseMutationResult.isSuccess`, and `UseMutationResult.isError` fields.
-
-To execute the Mutation, call `UseMutationResult.mutate()`. This function executes the Mutation, but does not return the data from the Mutation.
-
-To access the data returned by a Mutation, use the `UseMutationResult.data` field. The data for the `CompleteTodo` Mutation is of type `CompleteTodoData`, which is defined in [default-connector/index.d.ts](../index.d.ts). It has the following fields:
-```javascript
-export interface CompleteTodoData {
-  todo_update?: Todo_Key | null;
-}
-```
-
-To learn more about the `UseMutationResult` object, see the [TanStack React Query documentation](https://tanstack.com/query/v5/docs/framework/react/reference/useMutation).
-
-### Using `CompleteTodo`'s Mutation hook function
-
-```javascript
-import { getDataConnect } from 'firebase/data-connect';
-import { connectorConfig, CompleteTodoVariables } from '@firebasegen/default-connector';
-import { useCompleteTodo } from '@firebasegen/default-connector/react'
-
-export default function CompleteTodoComponent() {
-  // Call the Mutation hook function to get a `UseMutationResult` object which holds the state of your Mutation.
-  const mutation = useCompleteTodo();
-
-  // You can also pass in a `DataConnect` instance to the Mutation hook function.
-  const dataConnect = getDataConnect(connectorConfig);
-  const mutation = useCompleteTodo(dataConnect);
-
-  // You can also pass in a `useDataConnectMutationOptions` object to the Mutation hook function.
-  const options = {
-    onSuccess: () => { console.log('Mutation succeeded!'); }
-  };
-  const mutation = useCompleteTodo(options);
-
-  // You can also pass both a `DataConnect` instance and a `useDataConnectMutationOptions` object.
-  const dataConnect = getDataConnect(connectorConfig);
-  const options = {
-    onSuccess: () => { console.log('Mutation succeeded!'); }
-  };
-  const mutation = useCompleteTodo(dataConnect, options);
-
-  // After calling the Mutation hook function, you must call `UseMutationResult.mutate()` to execute the Mutation.
-  // The `useCompleteTodo` Mutation requires an argument of type `CompleteTodoVariables`:
-  const completeTodoVars: CompleteTodoVariables = {
-    id: ..., 
-  };
-  mutation.mutate(completeTodoVars);
-  // Variables can be defined inline as well.
-  mutation.mutate({ id: ..., });
-
-  // You can also pass in a `useDataConnectMutationOptions` object to `UseMutationResult.mutate()`.
-  const options = {
-    onSuccess: () => { console.log('Mutation succeeded!'); }
-  };
-  mutation.mutate(completeTodoVars, options);
-
-  // Then, you can render your component dynamically based on the status of the Mutation.
-  if (mutation.isPending) {
-    return <div>Loading...</div>;
-  }
-
-  if (mutation.isError) {
-    return <div>Error: {mutation.error.message}</div>;
-  }
-
-  // If the Mutation is successful, you can access the data returned using the `UseMutationResult.data` field.
-  if (mutation.isSuccess) {
-    console.log(mutation.data.todo_update);
   }
   return <div>Mutation execution {mutation.isSuccess ? 'successful' : 'failed'}!</div>;
 }
