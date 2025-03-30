@@ -1,10 +1,14 @@
 {
-  "emulators": {
-    "dataconnect": {
-      "dataDir": "dataconnect/.dataconnect/pgliteData"
-    }
+  "hosting": {
+    "source": ".output/public",
+    "rewrites": [
+      {
+        "source": "**",
+        "function": "nextServer"
+      }
+    ]
   },
-  "dataconnect": {
-    "source": "dataconnect"
+  "functions": {
+    "source": ".output/functions"
   }
 }
